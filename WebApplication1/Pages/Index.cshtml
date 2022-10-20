@@ -1,0 +1,61 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<script>
+    async function  connect() {
+
+        const isRiseInstalled = window.rise && window.rise.isRise;
+        alert("This is an alert message box. " + isRiseInstalled)
+
+        try  {
+        var connected = await window.rise.connect();
+         console.log(connected);
+
+
+            const sendTx = {
+                type: "entry_function_payload",
+                function: "0xcf8a27bb49491e65ad2ce1c48c098473e3340f45ed5a267a0d3ad8ee3eee5e35::claim::claim",
+                arguments: [
+                    [
+                        170, 130, 20, 251, 79, 241, 21, 250, 194, 39, 191, 222, 157, 208, 185, 236, 249, 167, 177, 110, 50, 215, 223, 113, 76, 11, 231, 164, 225, 69, 56, 159, 87, 159, 151, 82, 242, 246, 7, 116, 59, 156, 131, 160, 246, 77, 80, 65, 71, 122, 158, 24, 10, 70, 113, 89, 115, 143, 124, 84, 20, 111, 99, 3
+                    ],
+                    "89551",
+                    30000000000
+                ],
+                type_arguments: [],
+            };
+
+            //const signedTransaction = await window.rise.signTransaction(sendTx);
+            //console.log(signedTransaction)
+
+            try {
+                const pendingTransaction = await window.rise.signAndSubmitTransaction(
+                    sendTx
+                );
+
+                alert("WOO HOO");
+            } catch (error) {
+
+                console.log(error);
+                alert("DUPA" + error);
+            }
+
+        } catch (error)  {
+
+             alert(error);
+        }
+}
+</script>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <h2>
+        @Html.DisplayFor(m => m.Tx.arguments);
+        @Html.DisplayFor(m => m.Tx);
+    </h2>
+    <button onclick="connect()">Sign and publish</button>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>

@@ -1,0 +1,12 @@
+﻿{
+  "type": "entry_function_payload",
+  "function": "0xHEX_TEXT::claim::claim",
+  "arguments": [
+    [
+      12, 14, 15
+    ],
+    "number_string",
+    30000000000
+  ],
+  "type_arguments": []
+}
